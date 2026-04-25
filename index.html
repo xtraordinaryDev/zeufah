@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Zeufah — Viral Growth Marketing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +16,7 @@
 
     :root {
       --bg: #0a0a0a;
-      --lime: #c8f135;
+      --lime: #22e06b;
       --gray: #888888;
       --white: #f5f5f5;
       --border: rgba(255, 255, 255, 0.08);
@@ -25,6 +25,12 @@
 
     html {
       scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
     }
 
     body {
@@ -63,14 +69,121 @@
       align-items: center;
       justify-content: space-between;
       height: 64px;
+      gap: 18px;
     }
 
     .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 10px;
+    }
+
+    .nav-wordmark {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 22px;
+      letter-spacing: 0.06em;
       color: var(--white);
-      letter-spacing: 0.04em;
+      transform: translateY(1px);
+      opacity: 0.95;
+    }
+
+    .logo-image {
+      height: 34px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.35);
+      color: var(--white);
+      border-radius: 999px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+    }
+
+    .nav-toggle:hover {
+      opacity: 0.9;
+      border-color: rgba(200, 241, 53, 0.6);
+    }
+
+    .nav-toggle-lines {
+      width: 18px;
+      height: 12px;
+      position: relative;
+    }
+
+    .nav-toggle-lines span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--white);
+      opacity: 0.92;
+      transition: transform 0.22s ease, top 0.22s ease, opacity 0.22s ease;
+    }
+
+    .nav-toggle-lines span:nth-child(1) { top: 0; }
+    .nav-toggle-lines span:nth-child(2) { top: 5px; }
+    .nav-toggle-lines span:nth-child(3) { top: 10px; }
+
+    nav.open .nav-toggle-lines span:nth-child(1) { top: 5px; transform: rotate(45deg); }
+    nav.open .nav-toggle-lines span:nth-child(2) { opacity: 0; }
+    nav.open .nav-toggle-lines span:nth-child(3) { top: 5px; transform: rotate(-45deg); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-right: 4px;
+    }
+
+    .nav-link {
+      color: rgba(245, 245, 245, 0.88);
       text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 10px 8px;
+      opacity: 0.85;
+      transition: opacity 0.2s ease, color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 6px;
+      height: 1px;
+      background: var(--lime);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.22s ease;
+      opacity: 0.9;
+    }
+
+    .nav-link:hover {
+      opacity: 1;
+      color: var(--white);
+    }
+
+    .nav-link:hover::after {
+      transform: scaleX(1);
     }
 
     .btn {
@@ -81,10 +194,48 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       border: none;
-      border-radius: 0;
+      border-radius: 999px;
       cursor: pointer;
       text-decoration: none;
       transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal[data-delay] {
+      transition-delay: calc(var(--delay, 0ms));
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .btn:active {
+        transform: none;
+      }
+
+      .nav-link::after {
+        transition: none;
+      }
     }
 
     .btn-lime {
@@ -111,6 +262,7 @@
     #hero {
       position: relative;
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -118,11 +270,33 @@
       overflow: hidden;
     }
 
-    #hero::before {
+    .hero-bg-video {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      /* Crop bottom 10% of the video frame */
+      clip-path: inset(0 0 10% 0);
+      filter: saturate(0.95) contrast(1.05);
+    }
+
+    #hero::after {
       content: '';
       position: absolute;
       inset: 0;
       z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(rgba(10, 10, 10, 0.55), rgba(10, 10, 10, 0.88));
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
       pointer-events: none;
       opacity: 0.045;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E");
@@ -146,7 +320,7 @@
 
     .hero-content {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       padding: 120px 40px 80px;
       max-width: 900px;
     }
@@ -225,6 +399,18 @@
       font-size: 17px;
       color: var(--gray);
       line-height: 1.75;
+      margin-bottom: 28px;
+    }
+
+    .section-image {
+      width: 100%;
+      border: 1px solid var(--border-subtle);
+      object-fit: cover;
+      display: block;
+    }
+
+    .problem-image {
+      max-height: 320px;
     }
 
     /* ── SERVICES ── */
@@ -291,6 +477,14 @@
       line-height: 1.7;
     }
 
+    .card-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 22px;
+      border: 1px solid var(--border-subtle);
+    }
+
     /* ── STATEMENT ── */
     #statement {
       padding: 120px 0;
@@ -327,6 +521,20 @@
       margin-top: 0;
     }
 
+    .statement-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 42px;
+    }
+
+    .statement-gallery img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border: 1px solid var(--border-subtle);
+    }
+
     /* ── CTA SECTION ── */
     #cta {
       background: var(--lime);
@@ -354,7 +562,74 @@
     footer {
       padding: 40px 0;
       border-top: 1px solid var(--border-subtle);
-      text-align: center;
+      text-align: left;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .footer-muted {
+      color: var(--gray);
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 380px;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.92);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-link {
+      color: rgba(245, 245, 245, 0.86);
+      text-decoration: none;
+      font-size: 14px;
+      opacity: 0.85;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      opacity: 1;
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 28px;
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
     .footer-copy {
@@ -366,6 +641,61 @@
     @media (max-width: 768px) {
       .container {
         padding: 0 24px;
+      }
+
+      .nav-inner {
+        height: auto;
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .nav-actions {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .nav-links {
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding-top: 10px;
+        display: none;
+      }
+
+      nav.open .nav-actions {
+        display: flex;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        padding: 8px 6px 0;
+      }
+
+      .nav-link {
+        width: 100%;
+        padding: 12px 8px;
+      }
+
+      .nav-link::after {
+        display: none;
+      }
+
+      .nav-actions .btn {
+        width: 100%;
+        text-align: center;
       }
 
       .problem-inner {
@@ -381,6 +711,14 @@
         grid-template-columns: 1fr;
       }
 
+      .statement-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
       .card:not(:first-child) {
         border-left: 1px solid rgba(255, 255, 255, 0.1);
         border-top: none;
@@ -390,13 +728,52 @@
         border-left-color: rgba(255, 255, 255, 0.1);
       }
 
-      #hero,
       #problem,
       #services,
       #statement,
       #cta {
         padding-top: 80px;
         padding-bottom: 80px;
+      }
+
+      /* Hero: full-bleed video on small screens (stable height + framing) */
+      #hero {
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      .hero-bg-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Bias framing toward chart / arrow on tall portrait viewports */
+        object-position: 50% 42%;
+        clip-path: inset(0 0 7% 0);
+        transform: scale(1.08) translateZ(0);
+        transform-origin: 50% 45%;
+        filter: saturate(1.02) contrast(1.08) brightness(1.04);
+      }
+
+      #hero::after {
+        background: linear-gradient(rgba(10, 10, 10, 0.38), rgba(10, 10, 10, 0.84));
+      }
+
+      #hero::before {
+        opacity: 0.02;
+        animation: none;
+      }
+
+      .hero-content {
+        padding: calc(96px + env(safe-area-inset-top, 0px)) 24px calc(56px + env(safe-area-inset-bottom, 0px));
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .hero-bg-video {
+          transform: none;
+        }
       }
     }
   </style>
@@ -407,15 +784,42 @@
   <nav id="main-nav">
     <div class="container">
       <div class="nav-inner">
-        <a href="#" class="nav-logo">Zeufah</a>
-        <a href="#cta" class="btn btn-lime">Get Started</a>
+        <a href="#" class="nav-logo" aria-label="Zeufah Home">
+          <img src="images/logo.jpeg" alt="Zeufah logo" class="logo-image" />
+          <span class="nav-wordmark" aria-hidden="true">Zeufah</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-controls="primary-nav" aria-expanded="false" id="nav-toggle">
+          <span class="nav-toggle-lines" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+        <div class="nav-actions">
+          <div class="nav-links" aria-label="Primary" id="primary-nav">
+            <a class="nav-link" href="#services">Services</a>
+            <a class="nav-link" href="#statement">Proof</a>
+            <a class="nav-link" href="contact.html">Contact</a>
+          </div>
+          <a href="#cta" class="btn btn-lime">Get Started</a>
+        </div>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-content">
+    <video
+      class="hero-bg-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-hidden="true"
+      id="hero-video"
+    >
+      <source src="images/Green_Arrow_Chart_Video_Generation.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-content reveal">
       <h1 class="hero-headline">Marketing isn't<br>in 2020 anymore.</h1>
       <p class="hero-sub">We understand trends before they peak — and turn that into attention that actually converts.</p>
       <div class="hero-cta">
@@ -425,7 +829,7 @@
   </section>
 
   <!-- THE PROBLEM -->
-  <section id="problem">
+  <section id="problem" class="reveal">
     <div class="container">
       <div class="problem-inner">
         <div class="problem-left">
@@ -434,63 +838,147 @@
         <div class="problem-divider"></div>
         <div class="problem-right">
           <p>Attention shifts fast and most brands are always a step behind. We don't chase trends — we understand them before they peak. That's the difference between reacting and setting the pace.</p>
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" alt="Team planning social media growth strategy" class="section-image problem-image" />
         </div>
       </div>
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section id="services">
+  <section id="services" class="reveal">
     <div class="container">
       <p class="services-label">What We Do</p>
       <div class="services-grid">
-        <div class="card">
+        <div class="card reveal" style="--delay: 0ms;" data-delay>
           <div class="card-number">01</div>
-          <h3 class="card-title">Funneling Method</h3>
-          <p class="card-body">Multiple supporting accounts that drive traffic to your main profile organically — building a pipeline of attention that compounds over time.</p>
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Analytics dashboard on laptop" class="card-image" />
+          <h3 class="card-title">Our Unique Funneling Method</h3>
+          <p class="card-body">We specialize in building multiple supporting social media accounts that direct large audiences to your main profile, creating viral traction and expanding your reach organically and efficiently.</p>
+          <div style="margin-top: 22px;">
+            <a href="#cta" class="btn btn-lime">Get Started →</a>
+          </div>
         </div>
-        <div class="card">
+        <div class="card reveal" style="--delay: 110ms;" data-delay>
           <div class="card-number">02</div>
-          <h3 class="card-title">Rapid Viral Growth</h3>
-          <p class="card-body">Accelerate follower gain and engagement. We build off every second of momentum — so when something catches, you're ready to scale it.</p>
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80" alt="Creative team discussing campaign ideas" class="card-image" />
+          <h3 class="card-title">Data Driven Growth</h3>
+          <p class="card-body">Our methods will accelerate follower gain and engagement rates to help you build fan loyalty. We build off every second of momentum.</p>
+          <div style="margin-top: 22px;">
+            <a href="#cta" class="btn btn-lime">Get Started →</a>
+          </div>
         </div>
-        <div class="card">
+        <div class="card reveal" style="--delay: 220ms;" data-delay>
           <div class="card-number">03</div>
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80" alt="Content creators collaborating at workspace" class="card-image" />
           <h3 class="card-title">Tailored Strategies</h3>
-          <p class="card-body">Not pulled from a template. Built around what you're actually trying to achieve — your niche, your audience, your growth goals.</p>
+          <p class="card-body">Tailored strategies aren't pulled from a template. They’re built around what you’re trying to achieve.</p>
+          <p class="card-body" style="margin-top: 12px;">We focus on what sets you apart so that you can connect, convert, and grow.</p>
+          <div style="margin-top: 22px;">
+            <a href="#cta" class="btn btn-lime">Get Started →</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- STATEMENT -->
-  <section id="statement">
+  <section id="statement" class="reveal">
     <div class="container">
       <div class="statement-line"></div>
-      <h2 class="statement-headline">Built across every niche.</h2>
+      <h2 class="statement-headline">From rising pages to viral accounts — real growth, real results.</h2>
       <div class="statement-line-bottom"></div>
-      <p class="statement-sub">Growth across industries, audiences, and platforms.</p>
+      <p class="statement-sub">No Niche Left Behind</p>
+      <div class="statement-gallery">
+        <img class="reveal" style="--delay: 0ms;" data-delay src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80" alt="Startup team collaborating in office" />
+        <img class="reveal" style="--delay: 110ms;" data-delay src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=900&q=80" alt="Digital campaign planning workspace" />
+        <img class="reveal" style="--delay: 220ms;" data-delay src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80" alt="Social media metrics presentation" />
+      </div>
+      <div style="margin-top: 44px;">
+        <a href="#cta" class="btn btn-lime">Get Started →</a>
+      </div>
     </div>
   </section>
 
   <!-- CTA SECTION -->
-  <section id="cta">
+  <section id="cta" class="reveal">
     <div class="container">
       <h2 class="cta-headline">Ready to grow?</h2>
       <p class="cta-sub">Let's build something that actually converts.</p>
-      <a href="mailto:hello@zeufah.com" class="btn btn-black">Get Started →</a>
+      <a href="mailto:support@zeufah.com" class="btn btn-black">Get Started →</a>
+      <a href="contact.html" class="btn btn-black" style="margin-left: 10px;">Contact Us</a>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
+  <footer class="reveal">
     <div class="container">
-      <p class="footer-copy">© 2026 Zeufah. All rights reserved.</p>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/logo.jpeg" alt="Zeufah logo" class="footer-logo" />
+          <p class="footer-muted">Viral growth marketing built for speed, attention, and conversion.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a class="footer-link" href="#services">Services</a>
+            <a class="footer-link" href="#statement">Proof</a>
+            <a class="footer-link" href="#cta">Get Started</a>
+            <a class="footer-link" href="contact.html">Contact</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-links">
+            <a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a>
+            <a class="footer-link" href="tel:+16512073347">651 207 3347</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Zeufah. All rights reserved.</p>
+        <p class="footer-copy">Email: <a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a></p>
+      </div>
     </div>
   </footer>
 
   <script>
     const nav = document.getElementById('main-nav');
+    const navToggle = document.getElementById('nav-toggle');
+    const heroVideo = document.getElementById('hero-video');
+
+    const setNavOpen = (open) => {
+      nav.classList.toggle('open', open);
+      if (navToggle) {
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+    };
+
+    if (heroVideo) {
+      // Some browsers may override playbackRate until metadata is loaded.
+      const setRate = () => { heroVideo.playbackRate = 0.5; };
+      setRate();
+      heroVideo.addEventListener('loadedmetadata', setRate, { once: true });
+      heroVideo.addEventListener('play', setRate);
+    }
+
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = nav.classList.contains('open');
+        setNavOpen(!isOpen);
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!nav.classList.contains('open')) return;
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      if (nav.contains(target)) return;
+      setNavOpen(false);
+    });
 
     window.addEventListener('scroll', () => {
       if (window.scrollY > 20) {
@@ -499,6 +987,27 @@
         nav.classList.remove('scrolled');
       }
     }, { passive: true });
+
+    for (const link of document.querySelectorAll('#primary-nav a')) {
+      link.addEventListener('click', () => setNavOpen(false));
+    }
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      const revealEls = Array.from(document.querySelectorAll('.reveal'));
+      const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        }
+      }, { root: null, threshold: 0.14, rootMargin: '0px 0px -10% 0px' });
+
+      for (const el of revealEls) io.observe(el);
+    } else {
+      for (const el of document.querySelectorAll('.reveal')) el.classList.add('in-view');
+    }
   </script>
 
 </body>

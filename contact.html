@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Zeufah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --lime: #22e06b;
+      --gray: #8e8e8e;
+      --white: #f5f5f5;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 10, 10, 0.94);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-wordmark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      transform: translateY(1px);
+      opacity: 0.95;
+    }
+
+    .logo-image {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.35);
+      color: var(--white);
+      border-radius: 999px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+    }
+
+    .nav-toggle:hover {
+      opacity: 0.9;
+      border-color: rgba(200, 241, 53, 0.6);
+    }
+
+    .nav-toggle-lines {
+      width: 18px;
+      height: 12px;
+      position: relative;
+    }
+
+    .nav-toggle-lines span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--white);
+      opacity: 0.92;
+      transition: transform 0.22s ease, top 0.22s ease, opacity 0.22s ease;
+    }
+
+    .nav-toggle-lines span:nth-child(1) { top: 0; }
+    .nav-toggle-lines span:nth-child(2) { top: 5px; }
+    .nav-toggle-lines span:nth-child(3) { top: 10px; }
+
+    nav.open .nav-toggle-lines span:nth-child(1) { top: 5px; transform: rotate(45deg); }
+    nav.open .nav-toggle-lines span:nth-child(2) { opacity: 0; }
+    nav.open .nav-toggle-lines span:nth-child(3) { top: 5px; transform: rotate(-45deg); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: rgba(245, 245, 245, 0.88);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 10px 8px;
+      opacity: 0.85;
+      transition: opacity 0.2s ease, color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 6px;
+      height: 1px;
+      background: var(--lime);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.22s ease;
+      opacity: 0.9;
+    }
+
+    .nav-link:hover {
+      opacity: 1;
+      color: var(--white);
+    }
+
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    .btn {
+      display: inline-block;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      padding: 12px 18px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      border-radius: 999px;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal[data-delay] {
+      transition-delay: calc(var(--delay, 0ms));
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .btn:active {
+        transform: none;
+      }
+
+      .nav-link::after {
+        transition: none;
+      }
+    }
+
+    .btn-lime {
+      background: var(--lime);
+      color: #000;
+    }
+
+    .btn-lime:hover {
+      opacity: 0.88;
+    }
+
+    main {
+      padding: 64px 0 96px;
+    }
+
+    .hero {
+      margin-bottom: 48px;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(54px, 7vw, 90px);
+      line-height: 0.95;
+      margin-bottom: 18px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero p {
+      color: var(--gray);
+      max-width: 720px;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      padding: 28px;
+      background: #0f0f0f;
+    }
+
+    .panel h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 34px;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    .panel p {
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .contact-list {
+      margin-top: 16px;
+    }
+
+    .contact-list p {
+      margin: 6px 0;
+    }
+
+    .contact-list a {
+      color: var(--lime);
+      text-decoration: none;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 16px 0 8px;
+      color: #cfcfcf;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: #111;
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 12px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .panel-image {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      margin-top: 18px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: left;
+      color: var(--gray);
+      font-size: 13px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .footer-muted {
+      color: var(--gray);
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 380px;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.92);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-link {
+      color: rgba(245, 245, 245, 0.86);
+      text-decoration: none;
+      font-size: 14px;
+      opacity: 0.85;
+      transition: opacity 0.2s ease, color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      opacity: 1;
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      margin-top: 28px;
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    @media (max-width: 860px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-inner {
+        height: auto;
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .nav-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-right {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding-top: 10px;
+        display: none;
+      }
+
+      nav.open .nav-right {
+        display: flex;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        padding: 8px 6px 0;
+      }
+
+      .nav-link {
+        width: 100%;
+        padding: 12px 8px;
+      }
+
+      .nav-link::after {
+        display: none;
+      }
+
+      .nav-right .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo" aria-label="Back to home">
+          <img src="images/logo.jpeg" alt="Zeufah logo" class="logo-image" />
+          <span class="nav-wordmark" aria-hidden="true">Zeufah</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-controls="primary-nav" aria-expanded="false" id="nav-toggle">
+          <span class="nav-toggle-lines" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+        <div class="nav-right" aria-label="Primary">
+          <div class="nav-links" id="primary-nav">
+            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="index.html#services">Services</a>
+            <a class="nav-link" href="index.html#statement">Proof</a>
+            <a class="nav-link" href="index.html#cta">Get Started</a>
+          </div>
+          <a href="index.html#cta" class="btn btn-lime">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <section class="hero reveal">
+        <h1>Contact Us</h1>
+        <p>Tell us your brand goals and where you want growth. We will map a strategy that fits your niche, audience, and platform momentum.</p>
+      </section>
+
+      <section class="contact-layout reveal">
+        <article class="panel reveal" style="--delay: 0ms;" data-delay>
+          <h2>Let's Build Your Next Campaign</h2>
+          <p>Share your current challenges and where you want to scale. We will come back with a clear next step plan.</p>
+          <div class="contact-list">
+            <p>Email: <a href="mailto:support@zeufah.com">support@zeufah.com</a></p>
+            <p>Phone: <a href="tel:+16512073347">651 207 3347</a></p>
+            <p>Response time: within 24 hours</p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80" alt="Marketing team discussing strategy" class="panel-image" />
+        </article>
+
+        <article class="panel reveal" style="--delay: 120ms;" data-delay>
+          <h2>Project Inquiry</h2>
+          <form>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@company.com" />
+
+            <label for="message">What do you need help with?</label>
+            <textarea id="message" name="message" placeholder="Tell us about your goals and timeline"></textarea>
+
+            <button type="submit" class="btn btn-lime" style="margin-top: 16px;">Send Inquiry</button>
+          </form>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer class="reveal">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/logo.jpeg" alt="Zeufah logo" class="footer-logo" />
+          <p class="footer-muted">Viral growth marketing built for speed, attention, and conversion.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a class="footer-link" href="index.html#services">Services</a>
+            <a class="footer-link" href="index.html#statement">Proof</a>
+            <a class="footer-link" href="index.html#cta">Get Started</a>
+            <a class="footer-link" href="contact.html">Contact</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-links">
+            <a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a>
+            <a class="footer-link" href="tel:+16512073347">651 207 3347</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Zeufah. All rights reserved.</p>
+        <p>Email: <a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('nav');
+    const navToggle = document.getElementById('nav-toggle');
+    const setNavOpen = (open) => {
+      nav.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = nav.classList.contains('open');
+      setNavOpen(!isOpen);
+    });
+
+    for (const link of document.querySelectorAll('#primary-nav a')) {
+      link.addEventListener('click', () => setNavOpen(false));
+    }
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      const revealEls = Array.from(document.querySelectorAll('.reveal'));
+      const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        }
+      }, { root: null, threshold: 0.14, rootMargin: '0px 0px -10% 0px' });
+
+      for (const el of revealEls) io.observe(el);
+    } else {
+      for (const el of document.querySelectorAll('.reveal')) el.classList.add('in-view');
+    }
+  </script>
+</body>
+</html>
