@@ -76,10 +76,13 @@
     }
 
     .logo-image {
-      height: 36px;
+      height: 46px;
       width: auto;
       object-fit: contain;
       display: block;
+      mix-blend-mode: lighten;
+      border-radius: 8px;
+      background: transparent;
     }
 
     .nav-right {
@@ -260,10 +263,7 @@
     }
 
     .contact-layout {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 28px;
-      align-items: stretch;
+      display: block;
     }
 
     .panel {
@@ -330,6 +330,20 @@
       margin-top: 18px;
     }
 
+    .form-success {
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(34, 224, 107, 0.55);
+      background: rgba(34, 224, 107, 0.1);
+      color: var(--white);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .form-success[hidden] {
+      display: none;
+    }
+
     footer {
       border-top: 1px solid var(--border);
       padding: 40px 0;
@@ -340,7 +354,7 @@
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-columns: 1.4fr 1fr;
       gap: 26px;
       align-items: start;
     }
@@ -352,11 +366,14 @@
     }
 
     .footer-logo {
-      height: 34px;
+      height: 40px;
       width: auto;
       object-fit: contain;
       display: block;
       margin-bottom: 6px;
+      mix-blend-mode: lighten;
+      border-radius: 8px;
+      background: transparent;
     }
 
     .footer-muted {
@@ -485,9 +502,8 @@
             <a class="nav-link" href="index.html">Home</a>
             <a class="nav-link" href="index.html#services">Services</a>
             <a class="nav-link" href="index.html#statement">Proof</a>
-            <a class="nav-link" href="index.html#cta">Get Started</a>
           </div>
-          <a href="index.html#cta" class="btn btn-lime">Get Started</a>
+          <a href="contact.html" class="btn btn-lime">Get Started</a>
         </div>
       </div>
     </div>
@@ -495,34 +511,37 @@
 
   <main>
     <div class="container">
-      <section class="hero reveal">
+      <section class="hero reveal" style="text-align: center;">
         <h1>Contact Us</h1>
-        <p>Tell us your brand goals and where you want growth. We will map a strategy that fits your niche, audience, and platform momentum.</p>
+        <p style="font-size: 13px; margin-top: 10px; opacity: 0.7;">*We work with a limited number of clients per month.</p>
       </section>
 
-      <section class="contact-layout reveal">
+      <section class="contact-layout reveal" style="max-width: 620px; margin: 0 auto;">
         <article class="panel reveal" style="--delay: 0ms;" data-delay>
-          <h2>Let's Build Your Next Campaign</h2>
-          <p>Share your current challenges and where you want to scale. We will come back with a clear next step plan.</p>
-          <div class="contact-list">
-            <p>Email: <a href="mailto:support@zeufah.com">support@zeufah.com</a></p>
-            <p>Phone: <a href="tel:+16512073347">651 207 3347</a></p>
-            <p>Response time: within 24 hours</p>
-          </div>
-          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80" alt="Marketing team discussing strategy" class="panel-image" />
-        </article>
+          <h2>Growth Inquiry</h2>
+          <p id="form-success" class="form-success" role="status" hidden>Thanks — your message was sent. We will get back to you soon.</p>
+          <form id="contact-form" action="https://formsubmit.co/support@zeufah.com" method="POST">
+            <input type="hidden" name="_subject" value="Zeufah website — new growth inquiry" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
 
-        <article class="panel reveal" style="--delay: 120ms;" data-delay>
-          <h2>Project Inquiry</h2>
-          <form>
             <label for="name">Name</label>
-            <input id="name" name="name" type="text" placeholder="Your name" />
+            <input id="name" name="name" type="text" placeholder="Your name" required autocomplete="name" />
 
             <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="you@company.com" />
+            <input id="email" name="email" type="email" placeholder="you@company.com" required autocomplete="email" />
+
+            <label for="country">Country / Region</label>
+            <input id="country" name="country" type="text" placeholder="e.g. United States" autocomplete="country-name" />
+
+            <label for="instagram">Instagram</label>
+            <input id="instagram" name="instagram" type="text" placeholder="@username" />
+
+            <label for="other_socials">Other Socials</label>
+            <input id="other_socials" name="other_socials" type="text" placeholder="TikTok, X, Telegram, etc." />
 
             <label for="message">What do you need help with?</label>
-            <textarea id="message" name="message" placeholder="Tell us about your goals and timeline"></textarea>
+            <textarea id="message" name="message" placeholder="Tell us about your goals and timeline" required></textarea>
 
             <button type="submit" class="btn btn-lime" style="margin-top: 16px;">Send Inquiry</button>
           </form>
@@ -544,40 +563,52 @@
           <div class="footer-links">
             <a class="footer-link" href="index.html#services">Services</a>
             <a class="footer-link" href="index.html#statement">Proof</a>
-            <a class="footer-link" href="index.html#cta">Get Started</a>
             <a class="footer-link" href="contact.html">Contact</a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <div class="footer-links">
-            <a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a>
-            <a class="footer-link" href="tel:+16512073347">651 207 3347</a>
           </div>
         </div>
       </div>
 
       <div class="footer-bottom">
         <p>© 2026 Zeufah. All rights reserved.</p>
-        <p>Email: <a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a></p>
+        <p><a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a></p>
       </div>
     </div>
   </footer>
 
   <script>
+    (function () {
+      const form = document.getElementById('contact-form');
+      if (form) {
+        const next = document.createElement('input');
+        next.type = 'hidden';
+        next.name = '_next';
+        const u = new URL(window.location.href);
+        u.searchParams.set('sent', '1');
+        next.value = u.toString();
+        form.appendChild(next);
+      }
+
+      if (new URLSearchParams(window.location.search).get('sent') === '1') {
+        const ok = document.getElementById('form-success');
+        if (ok) ok.hidden = false;
+      }
+    })();
+
     const nav = document.querySelector('nav');
     const navToggle = document.getElementById('nav-toggle');
     const setNavOpen = (open) => {
+      if (!nav || !navToggle) return;
       nav.classList.toggle('open', open);
       navToggle.setAttribute('aria-expanded', String(open));
       navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     };
 
-    navToggle.addEventListener('click', () => {
-      const isOpen = nav.classList.contains('open');
-      setNavOpen(!isOpen);
-    });
+    if (nav && navToggle) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = nav.classList.contains('open');
+        setNavOpen(!isOpen);
+      });
+    }
 
     for (const link of document.querySelectorAll('#primary-nav a')) {
       link.addEventListener('click', () => setNavOpen(false));

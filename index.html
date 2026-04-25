@@ -89,10 +89,13 @@
     }
 
     .logo-image {
-      height: 34px;
+      height: 46px;
       width: auto;
       display: block;
       object-fit: contain;
+      border-radius: 8px;
+      mix-blend-mode: lighten;
+      background: transparent;
     }
 
     .nav-actions {
@@ -411,6 +414,9 @@
 
     .problem-image {
       max-height: 320px;
+      object-fit: contain;
+      object-position: center;
+      background: #111;
     }
 
     /* ── SERVICES ── */
@@ -430,7 +436,7 @@
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 0;
     }
 
@@ -481,8 +487,125 @@
       width: 100%;
       height: 180px;
       object-fit: cover;
+      object-position: center;
       margin-bottom: 22px;
       border: 1px solid var(--border-subtle);
+      background: #111;
+    }
+
+    .card-image-contain {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      object-position: center;
+      margin-bottom: 22px;
+      border: 1px solid var(--border-subtle);
+      background: #111;
+      padding: 10px;
+    }
+
+    /* ── SOCIAL PROOF ── */
+    #proof {
+      padding: 80px 0 60px;
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+
+    .proof-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 44px;
+    }
+
+    /* ── @ creator row ── */
+    .profiles-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 64px;
+    }
+
+    .profile-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .profile-avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--lime);
+      flex-shrink: 0;
+    }
+
+    .profile-handle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    /* ── proof screenshot grid ── small circles ── */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .proof-grid img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-subtle);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .proof-grid img:hover {
+      transform: scale(1.06);
+      border-color: var(--lime);
+      z-index: 1;
+      position: relative;
+    }
+
+    /* Full logo visible inside same circle size */
+    .proof-grid img.proof-logo-fit {
+      object-fit: contain;
+      object-position: center;
+      background: var(--bg);
+      padding: 14%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .profiles-row {
+        gap: 20px;
+      }
+
+      .profile-avatar {
+        width: 110px;
+        height: 110px;
+      }
+
+      .profile-handle {
+        font-size: 17px;
+      }
+
+      .proof-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
     }
 
     /* ── STATEMENT ── */
@@ -519,6 +642,17 @@
       font-size: 17px;
       color: var(--gray);
       margin-top: 0;
+    }
+
+    .statement-visual {
+      display: block;
+      width: 100%;
+      max-width: 920px;
+      margin: 36px auto 0;
+      border: 1px solid var(--border-subtle);
+      object-fit: contain;
+      object-position: center;
+      background: #111;
     }
 
     .statement-gallery {
@@ -567,7 +701,7 @@
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-columns: 1.4fr 1fr;
       gap: 26px;
       align-items: start;
     }
@@ -579,11 +713,14 @@
     }
 
     .footer-logo {
-      height: 34px;
+      height: 40px;
       width: auto;
       object-fit: contain;
       display: block;
       margin-bottom: 6px;
+      mix-blend-mode: lighten;
+      border-radius: 8px;
+      background: transparent;
     }
 
     .footer-muted {
@@ -709,6 +846,7 @@
 
       .services-grid {
         grid-template-columns: 1fr;
+        gap: 0;
       }
 
       .statement-gallery {
@@ -823,7 +961,7 @@
       <h1 class="hero-headline">Marketing isn't<br>in 2020 anymore.</h1>
       <p class="hero-sub">We understand trends before they peak — and turn that into attention that actually converts.</p>
       <div class="hero-cta">
-        <a href="#cta" class="btn btn-lime">Get Started →</a>
+        <a href="contact.html" class="btn btn-lime">Get Started →</a>
       </div>
     </div>
   </section>
@@ -838,7 +976,7 @@
         <div class="problem-divider"></div>
         <div class="problem-right">
           <p>Attention shifts fast and most brands are always a step behind. We don't chase trends — we understand them before they peak. That's the difference between reacting and setting the pace.</p>
-          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" alt="Team planning social media growth strategy" class="section-image problem-image" />
+          <img src="images/WHAT%20WORKED%20LAST%20WEEK%20IS%20ALREADY%20FADING.png" alt="What worked last week is already fading" class="section-image problem-image" />
         </div>
       </div>
     </div>
@@ -850,31 +988,40 @@
       <p class="services-label">What We Do</p>
       <div class="services-grid">
         <div class="card reveal" style="--delay: 0ms;" data-delay>
-          <div class="card-number">01</div>
+          <div class="card-number">1</div>
           <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Analytics dashboard on laptop" class="card-image" />
           <h3 class="card-title">Our Unique Funneling Method</h3>
           <p class="card-body">We specialize in building multiple supporting social media accounts that direct large audiences to your main profile, creating viral traction and expanding your reach organically and efficiently.</p>
           <div style="margin-top: 22px;">
-            <a href="#cta" class="btn btn-lime">Get Started →</a>
+            <a href="contact.html" class="btn btn-lime">Get Started →</a>
           </div>
         </div>
         <div class="card reveal" style="--delay: 110ms;" data-delay>
-          <div class="card-number">02</div>
-          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80" alt="Creative team discussing campaign ideas" class="card-image" />
+          <div class="card-number">2</div>
+          <img src="images/DATA DRIVEN GROWTH.png" alt="Data Driven Growth" class="card-image-contain" />
           <h3 class="card-title">Data Driven Growth</h3>
           <p class="card-body">Our methods will accelerate follower gain and engagement rates to help you build fan loyalty. We build off every second of momentum.</p>
           <div style="margin-top: 22px;">
-            <a href="#cta" class="btn btn-lime">Get Started →</a>
+            <a href="contact.html" class="btn btn-lime">Get Started →</a>
           </div>
         </div>
         <div class="card reveal" style="--delay: 220ms;" data-delay>
-          <div class="card-number">03</div>
-          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80" alt="Content creators collaborating at workspace" class="card-image" />
+          <div class="card-number">3</div>
+          <img src="images/TAILORED STATEGIES.png" alt="Tailored Strategies" class="card-image-contain" />
           <h3 class="card-title">Tailored Strategies</h3>
           <p class="card-body">Tailored strategies aren't pulled from a template. They’re built around what you’re trying to achieve.</p>
           <p class="card-body" style="margin-top: 12px;">We focus on what sets you apart so that you can connect, convert, and grow.</p>
           <div style="margin-top: 22px;">
-            <a href="#cta" class="btn btn-lime">Get Started →</a>
+            <a href="contact.html" class="btn btn-lime">Get Started →</a>
+          </div>
+        </div>
+        <div class="card reveal" style="--delay: 330ms;" data-delay>
+          <div class="card-number">4</div>
+          <img src="images/24_7 CHATTING.png" alt="24/7 Chatting" class="card-image-contain" />
+          <h3 class="card-title">24/7 Chatting</h3>
+          <p class="card-body">We let you do what you do best — making content. Our specialized, bilingual customer service reps have years of experience with CRMs and sales psychology.</p>
+          <div style="margin-top: 22px;">
+            <a href="contact.html" class="btn btn-lime">Get Started →</a>
           </div>
         </div>
       </div>
@@ -888,13 +1035,51 @@
       <h2 class="statement-headline">From rising pages to viral accounts — real growth, real results.</h2>
       <div class="statement-line-bottom"></div>
       <p class="statement-sub">No Niche Left Behind</p>
-      <div class="statement-gallery">
-        <img class="reveal" style="--delay: 0ms;" data-delay src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80" alt="Startup team collaborating in office" />
-        <img class="reveal" style="--delay: 110ms;" data-delay src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=900&q=80" alt="Digital campaign planning workspace" />
-        <img class="reveal" style="--delay: 220ms;" data-delay src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80" alt="Social media metrics presentation" />
-      </div>
+      <img src="images/FROM%20RISING%20PAGES%20TO%20VIRAL%20ACCOUNTS.png" alt="From rising pages to viral accounts" class="statement-visual reveal" style="--delay: 0ms;" data-delay />
       <div style="margin-top: 44px;">
-        <a href="#cta" class="btn btn-lime">Get Started →</a>
+        <a href="contact.html" class="btn btn-lime">Get Started →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section id="proof" class="reveal">
+    <div class="container">
+      <p class="proof-label">Creators We've Worked With</p>
+
+      <div class="profiles-row">
+        <div class="profile-item reveal" style="--delay: 0ms;" data-delay>
+          <img src="images/@gabby.wells.png" alt="@gabby.wells" class="profile-avatar" />
+          <span class="profile-handle">@gabby.wells</span>
+        </div>
+        <div class="profile-item reveal" style="--delay: 80ms;" data-delay>
+          <img src="images/@madisynmaeee.png" alt="@madisynmaeee" class="profile-avatar" />
+          <span class="profile-handle">@madisynmaeee</span>
+        </div>
+        <div class="profile-item reveal" style="--delay: 160ms;" data-delay>
+          <img src="images/@nathan_fri.png.jpg" alt="@nathan_fri" class="profile-avatar" />
+          <span class="profile-handle">@nathan_fri</span>
+        </div>
+        <div class="profile-item reveal" style="--delay: 240ms;" data-delay>
+          <img src="images/@dakotaelder.png.jpg" alt="@dakotaelder" class="profile-avatar" />
+          <span class="profile-handle">@dakotaelder</span>
+        </div>
+      </div>
+
+      <div class="proof-grid">
+        <img class="reveal" style="--delay: 0ms;" data-delay src="images/prof1.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 50ms;" data-delay src="images/prof2.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 100ms;" data-delay src="images/prof3.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 150ms;" data-delay src="images/prof4.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 200ms;" data-delay src="images/prof5.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 250ms;" data-delay src="images/prof6.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 300ms;" data-delay src="images/prof7.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 350ms;" data-delay src="images/prof8.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 400ms;" data-delay src="images/prof9.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 450ms;" data-delay src="images/prof10.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 500ms;" data-delay src="images/prof11.PNG" alt="Growth proof" />
+        <img class="reveal" style="--delay: 550ms;" data-delay src="images/prof13.PNG" alt="Growth proof" />
+        <img class="reveal proof-logo-fit" style="--delay: 600ms;" data-delay src="images/Xtraordinary_2c%20(2).jpg" alt="Xtraordinary logo" />
       </div>
     </div>
   </section>
@@ -904,8 +1089,7 @@
     <div class="container">
       <h2 class="cta-headline">Ready to grow?</h2>
       <p class="cta-sub">Let's build something that actually converts.</p>
-      <a href="mailto:support@zeufah.com" class="btn btn-black">Get Started →</a>
-      <a href="contact.html" class="btn btn-black" style="margin-left: 10px;">Contact Us</a>
+      <a href="contact.html" class="btn btn-black">Contact Us</a>
     </div>
   </section>
 
@@ -923,23 +1107,14 @@
           <div class="footer-links">
             <a class="footer-link" href="#services">Services</a>
             <a class="footer-link" href="#statement">Proof</a>
-            <a class="footer-link" href="#cta">Get Started</a>
             <a class="footer-link" href="contact.html">Contact</a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <div class="footer-links">
-            <a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a>
-            <a class="footer-link" href="tel:+16512073347">651 207 3347</a>
           </div>
         </div>
       </div>
 
       <div class="footer-bottom">
         <p class="footer-copy">© 2026 Zeufah. All rights reserved.</p>
-        <p class="footer-copy">Email: <a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a></p>
+        <p class="footer-copy"><a class="footer-link" href="mailto:support@zeufah.com">support@zeufah.com</a></p>
       </div>
     </div>
   </footer>
