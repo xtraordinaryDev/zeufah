@@ -483,25 +483,33 @@
       line-height: 1.7;
     }
 
+    .card-img-wrap {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 22px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .card-image {
       width: 100%;
-      height: 180px;
+      height: 100%;
       object-fit: cover;
       object-position: center;
-      margin-bottom: 22px;
-      border: 1px solid var(--border-subtle);
-      background: #111;
+      display: block;
+      border: none;
     }
 
     .card-image-contain {
-      width: 100%;
-      height: 180px;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
       object-fit: contain;
-      object-position: center;
-      margin-bottom: 22px;
-      border: 1px solid var(--border-subtle);
-      background: #111;
-      padding: 10px;
+      display: block;
+      border: none;
     }
 
     /* ── SOCIAL PROOF ── */
@@ -989,7 +997,7 @@
       <div class="services-grid">
         <div class="card reveal" style="--delay: 0ms;" data-delay>
           <div class="card-number">1</div>
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Analytics dashboard on laptop" class="card-image" />
+          <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Analytics dashboard on laptop" class="card-image" /></div>
           <h3 class="card-title">Our Unique Funneling Method</h3>
           <p class="card-body">We specialize in building multiple supporting social media accounts that direct large audiences to your main profile, creating viral traction and expanding your reach organically and efficiently.</p>
           <div style="margin-top: 22px;">
@@ -998,7 +1006,7 @@
         </div>
         <div class="card reveal" style="--delay: 110ms;" data-delay>
           <div class="card-number">2</div>
-          <img src="images/DATA DRIVEN GROWTH.png" alt="Data Driven Growth" class="card-image-contain" />
+          <div class="card-img-wrap"><img src="images/DATA DRIVEN GROWTH.png" alt="Data Driven Growth" class="card-image-contain" /></div>
           <h3 class="card-title">Data Driven Growth</h3>
           <p class="card-body">Our methods will accelerate follower gain and engagement rates to help you build fan loyalty. We build off every second of momentum.</p>
           <div style="margin-top: 22px;">
@@ -1007,7 +1015,7 @@
         </div>
         <div class="card reveal" style="--delay: 220ms;" data-delay>
           <div class="card-number">3</div>
-          <img src="images/TAILORED STATEGIES.png" alt="Tailored Strategies" class="card-image-contain" />
+          <div class="card-img-wrap"><img src="images/TAILORED STATEGIES.png" alt="Tailored Strategies" class="card-image-contain" /></div>
           <h3 class="card-title">Tailored Strategies</h3>
           <p class="card-body">Tailored strategies aren't pulled from a template. They’re built around what you’re trying to achieve.</p>
           <p class="card-body" style="margin-top: 12px;">We focus on what sets you apart so that you can connect, convert, and grow.</p>
@@ -1017,7 +1025,7 @@
         </div>
         <div class="card reveal" style="--delay: 330ms;" data-delay>
           <div class="card-number">4</div>
-          <img src="images/24_7 CHATTING.png" alt="24/7 Chatting" class="card-image-contain" />
+          <div class="card-img-wrap"><img src="images/24_7 CHATTING.png" alt="24/7 Chatting" class="card-image-contain" /></div>
           <h3 class="card-title">24/7 Chatting</h3>
           <p class="card-body">We let you do what you do best — making content. Our specialized, bilingual customer service reps have years of experience with CRMs and sales psychology.</p>
           <div style="margin-top: 22px;">
